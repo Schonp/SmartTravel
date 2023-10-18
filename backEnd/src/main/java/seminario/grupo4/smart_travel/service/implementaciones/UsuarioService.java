@@ -41,6 +41,7 @@ public class UsuarioService implements IUsuarioService {
             usuarioActual.setContraseña(usuario.getContraseña());
             usuarioActual.setEmail(usuario.getEmail());
 
+
             usuarioDAO.save(usuarioActual);
         }
     }

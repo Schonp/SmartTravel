@@ -51,6 +51,18 @@ public class Viaje {
         return fechaFin;
     }
 
+    public List<Miembro> getMiembros() {
+        return miembros;
+    }
+
+    public List<Gasto> getGastos() {
+        return gastos;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -65,6 +77,18 @@ public class Viaje {
 
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public void setMiembros(List<Miembro> miembros) {
+        this.miembros = miembros;
+    }
+
+    public void setGastos(List<Gasto> gastos) {
+        this.gastos = gastos;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

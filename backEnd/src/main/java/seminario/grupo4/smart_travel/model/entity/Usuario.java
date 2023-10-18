@@ -44,6 +44,10 @@ public class Usuario {
         return email;
     }
 
+    public List<Viaje> getViajes() {
+        return viajes;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -58,5 +62,9 @@ public class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setViajes(List<Viaje> viajes) {
+        this.viajes = viajes;
     }
 }

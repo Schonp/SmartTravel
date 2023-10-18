@@ -1,12 +1,13 @@
-package seminario.grupo4.smart_travel.repository.interfaces;
+package seminario.grupo4.smart_travel.service.interfaces;
 
 import seminario.grupo4.smart_travel.model.entity.Gasto;
 
 import java.util.List;
 
-public interface IGastoDAO {
+public interface IGastoService {
     List<Gasto> findAll();
     Gasto findById(long id);
-    void save(Gasto miembro);
+    void save(Gasto gasto);
+    void update(long id,Gasto gasto);
     void deleteById(long id);
 }
