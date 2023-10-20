@@ -11,7 +11,7 @@ public class MiembroDTO {
     private String nombre;
     private String email;
     private double balance;
-    private long idViaje;
+    private Long idViaje;
 
     public MiembroDTO() {
     }

@@ -65,7 +65,7 @@ public class MiembroController {
     public ResponseEntity<String> delete(@PathVariable Long id){
         Miembro miembroDB = miembroService.findById(id);
 
-        if (miembroDB == null)  // TODO VER LOS PARSE DTOS PARA QUE FUNQUE TODO
+        if (miembroDB == null)
             return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado. " + id,null,404);
 
         miembroService.deleteById(id);
@@ -92,7 +92,8 @@ public class MiembroController {
         miembro.setNombre(u.getNombre());
         miembro.setEmail(u.getEmail());
         miembro.setBalance(u.getBalance());
-        if(u.getIdViaje() != 0) {
+
+        if(u.getIdViaje() != null) {
             miembro.setViaje(viajeService.findById(u.getIdViaje()));
         }
 

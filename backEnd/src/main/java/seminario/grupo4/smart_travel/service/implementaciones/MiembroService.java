@@ -39,7 +39,6 @@ public class MiembroService implements IMiembroService {
             miembroViejo.setViaje(miembro.getViaje());
             miembroViejo.setEmail(miembro.getEmail());
             miembroViejo.setBalance(miembro.getBalance());
-            //miembroViejo.setGastos(miembro.getGastos());
 
             miembroDAO.save(miembroViejo);
         }
