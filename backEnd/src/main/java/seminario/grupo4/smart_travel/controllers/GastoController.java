@@ -84,8 +84,10 @@ public class GastoController {
 
         gastoDTO.setNombreGasto(gasto.getNombreGasto());
         gastoDTO.setMonto(gasto.getMonto());
-        gastoDTO.setIdComprador(gasto.getComprador().getId());
-        gastoDTO.setIdViaje(gasto.getViaje().getId());
+        if(gasto.getComprador() != null)
+            gastoDTO.setIdComprador(gasto.getComprador().getId());
+        if(gasto.getViaje() != null)
+            gastoDTO.setIdViaje(gasto.getViaje().getId());
 
         return gastoDTO;
     }
@@ -93,9 +95,11 @@ public class GastoController {
     private Gasto  parseEntity(GastoDTO gastoDTO){
         Gasto gasto = new Gasto();
 
-        gasto.setViaje(viajeService.findById(gastoDTO.getIdViaje()));
+        if(gastoDTO.getIdViaje() != 0)
+            gasto.setViaje(viajeService.findById(gastoDTO.getIdViaje()));
         gasto.setMonto(gastoDTO.getMonto());
-        gasto.setComprador(miembroService.findById(gastoDTO.getIdComprador()));
+        if(gastoDTO.getIdComprador() != 0)
+            gasto.setComprador(miembroService.findById(gastoDTO.getIdComprador()));
         gasto.setNombreGasto(gastoDTO.getNombreGasto());
 
         return gasto;
