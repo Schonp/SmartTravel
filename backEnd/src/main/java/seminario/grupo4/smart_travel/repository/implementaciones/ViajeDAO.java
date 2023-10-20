@@ -38,6 +38,7 @@ public class ViajeDAO implements IViajeDAO {
     }
 
     @Override
+    @Transactional
     public void save(Viaje viaje) {
         Session session = entityManager.unwrap(Session.class);
 
@@ -45,6 +46,7 @@ public class ViajeDAO implements IViajeDAO {
     }
 
     @Override
+    @Transactional
     public void deleteById(long id) {
         Session currentSession = entityManager.unwrap(Session.class);
 

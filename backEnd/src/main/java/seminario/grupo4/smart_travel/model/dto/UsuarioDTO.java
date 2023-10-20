@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class UsuarioDTO {
     private String nombreUs;
-    private String contraseña;
+//    private String contraseña;
     private String email;
 
     public UsuarioDTO() {
@@ -15,7 +15,7 @@ public class UsuarioDTO {
 
     public UsuarioDTO(String nombreUs, String contraseña, String email) {
         this.nombreUs = nombreUs;
-        this.contraseña = contraseña;
+//        this.contraseña = contraseña;
         this.email = email;
     }
 
@@ -23,7 +23,6 @@ public class UsuarioDTO {
     public String toString() {
         return "UsuarioDTO{" +
                 "nombreUs='" + nombreUs + '\'' +
-                ", contraseña='" + contraseña + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

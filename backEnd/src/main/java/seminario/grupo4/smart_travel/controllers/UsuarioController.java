@@ -36,9 +36,9 @@ public class UsuarioController {
         return new ResponseEntity<>(parseDTO(usuario),null,200);
     }
     @PostMapping("")
-    public ResponseEntity<?> guardarUsuario(@RequestBody UsuarioDTO usuario) {
-        usuarioService.save(parseEntity(usuario));
-        return new ResponseEntity<>(usuario,null,201);
+    public ResponseEntity<?> guardarUsuario(@RequestBody Usuario usuario) {
+        usuarioService.save(usuario);
+        return new ResponseEntity<>(parseDTO(usuario),null,201);
     }
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
@@ -62,7 +62,7 @@ public class UsuarioController {
 
         usuarioService.deleteById(id);
 
-        return new ResponseEntity<>("Usuario eliminado exitosamente. " + id,null,204);
+        return new ResponseEntity<>("Usuario eliminado exitosamente. " + id,null,200);
     }
 
     // PARSE METHODS
@@ -71,7 +71,6 @@ public class UsuarioController {
 
         retorno.setNombreUs(usuario.getNombreUs());
         retorno.setEmail(usuario.getEmail());;
-        retorno.setContraseña(usuario.getContraseña());
 
         return retorno;
     }
@@ -81,7 +80,6 @@ public class UsuarioController {
 
         usuario.setNombreUs(usuarioDTO.getNombreUs());
         usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setContraseña(usuarioDTO.getContraseña());
 
         return usuario;
     }
