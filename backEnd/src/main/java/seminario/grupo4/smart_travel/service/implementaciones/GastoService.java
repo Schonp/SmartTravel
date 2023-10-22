@@ -37,7 +37,7 @@ public class GastoService implements IGastoService {
             gastoActual.setNombreGasto(gasto.getNombreGasto());
             gastoActual.setComprador(gasto.getComprador());
             gastoActual.setMonto(gasto.getMonto());
-            gastoActual.setViaje(gasto.getViaje());
+            //gastoActual.setViaje(gasto.getViaje());
 
             gastoDAO.save(gastoActual);
         }

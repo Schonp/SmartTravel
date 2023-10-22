@@ -20,6 +20,12 @@ public class MiembroService implements IMiembroService {
     }
 
     @Override
+    public List<Miembro> findbyIdVieje(long id) {
+        List<Miembro> miembros = miembroDAO.findbyIdVieje(id);
+        return miembros;
+    }
+
+    @Override
     public Miembro findById(long id) {
         return miembroDAO.findById(id);
     }

@@ -7,7 +7,6 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Miembro;
-import seminario.grupo4.smart_travel.model.entity.Usuario;
 import seminario.grupo4.smart_travel.repository.interfaces.IMiembroDAO;
 
 import java.util.List;
@@ -53,5 +52,16 @@ public class MiembroDAO implements IMiembroDAO {
         Query query = currentSession.createQuery("DELETE FROM Miembro WHERE id=:id");
         query.setParameter("id",id);
         query.executeUpdate();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Miembro> findbyIdVieje(long id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query query = currentSession.createQuery("FROM Miembro WHERE viaje.id=:id");
+        query.setParameter("id", id);
+
+        return query.getResultList();
     }
 }

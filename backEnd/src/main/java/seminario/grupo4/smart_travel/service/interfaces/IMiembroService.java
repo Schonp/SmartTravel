@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface IMiembroService {
     List<Miembro> findAll();
+    List<Miembro> findbyIdVieje(long id);
     Miembro findById(long id);
     void save(Miembro miembro);
     void update(long id,Miembro miembro);
     void deleteById(long id);
+
 }

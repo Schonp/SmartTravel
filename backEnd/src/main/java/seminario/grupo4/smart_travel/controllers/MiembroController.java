@@ -62,15 +62,15 @@ public class MiembroController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         Miembro miembroDB = miembroService.findById(id);
 
         if (miembroDB == null)
-            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado. " + id,null,404);
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado. " + id, null, 404);
 
         miembroService.deleteById(id);
 
-        return new ResponseEntity<>("El miembro ha sido eliminado correctamente.",null,200);
+        return new ResponseEntity<>("El miembro ha sido eliminado correctamente.", null, 200);
     }
 
     // PARSER METHODS
