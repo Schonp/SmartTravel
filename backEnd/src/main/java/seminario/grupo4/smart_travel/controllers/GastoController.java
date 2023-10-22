@@ -24,14 +24,15 @@ public class GastoController {
     private IMiembroService miembroService;
 
     @GetMapping({""})
-    public List<GastoDTO> obtenerTodosLosGastos(){
+    public List<GastoDTO> obtenerTodosLosGastos() {
         List<GastoDTO> gastoDTOList = new ArrayList<>();
 
-        for(Gasto g:gastoService.findAll()){
+        for (Gasto g : gastoService.findAll()) {
             gastoDTOList.add(parseDTO(g));
         }
         return gastoDTOList;
     }
+
     @GetMapping({"/{id}"})
     public ResponseEntity<?> obtenerGastoPorID(@PathVariable Long id) {
         Gasto gasto = gastoService.findById(id);
@@ -42,6 +43,7 @@ public class GastoController {
             return new ResponseEntity<>(parseDTO(gasto), null, 200);
         }
     }
+
     @PostMapping("")
     public ResponseEntity<?> guardarGasto(@RequestBody GastoDTO gasto) {
 
@@ -52,18 +54,17 @@ public class GastoController {
             comprar(gasto); // -- AHORA SE ACTUALIZA LOS BALANCES DE LOS MIEMBROS DEL VIAJE //
 
             return new ResponseEntity<>(gasto, null, 201);
-        }
-        else {
+        } else {
             return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado." + gasto.getIdComprador(), null, 404);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateGasto(@PathVariable Long id, @RequestBody GastoDTO gastoDTO){
+    public ResponseEntity<?> updateGasto(@PathVariable Long id, @RequestBody GastoDTO gastoDTO) {
         Gasto gastoBD = gastoService.findById(id);
 
-        if(gastoBD == null)
-            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún gasto con el id ingresado." + id,null,404);
+        if (gastoBD == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún gasto con el id ingresado." + id, null, 404);
 
         Gasto gasto = parseEntity(gastoDTO);
 
@@ -71,7 +72,7 @@ public class GastoController {
 
         gastoService.update(id, gasto); // se me cambia el monto originak
 
-        return new ResponseEntity<>(gastoDTO,null,200);
+        return new ResponseEntity<>(gastoDTO, null, 200);
     }
 
     @DeleteMapping("/{id}")
@@ -79,43 +80,56 @@ public class GastoController {
         Gasto gastoDB = gastoService.findById(id);
 
         if (gastoDB == null)
-            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún gasto con el id ingresado. " + id,null,404);
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún gasto con el id ingresado. " + id, null, 404);
 
         borrarGasto(parseDTO(gastoDB));
 
         gastoService.deleteById(id);
 
 
-        return new ResponseEntity<>("Gasto eliminado exitosamente. " + id,null,200);
+        return new ResponseEntity<>("Gasto eliminado exitosamente. " + id, null, 200);
     }
 
     // TODO PAGAR GASTO ENTRE X e Y "MIEMBRO" //
     @PutMapping("/pagar/{id}")
-    public ResponseEntity<?> pagarCuentas(@PathVariable Long id, @RequestParam Long idPagador){
+    public ResponseEntity<?> pagarCuentas(@PathVariable Long idGasto, @RequestParam Long idPagador) {
+        Gasto gasto = gastoService.findById(idGasto);
+
+        if (gasto == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún gasto con el id ingresado." + idGasto, null, 404);
+
+        Miembro pagador = miembroService.findById(idPagador);
+
+        if (pagador == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado." + idPagador, null, 404);
+
+        double monto = gasto.getMonto();
+
+
         return null;
     }
 
     // PARSE METHODS
-    private GastoDTO parseDTO(Gasto gasto){
+    private GastoDTO parseDTO(Gasto gasto) {
         GastoDTO gastoDTO = new GastoDTO();
 
         gastoDTO.setNombreGasto(gasto.getNombreGasto());
         gastoDTO.setMonto(gasto.getMonto());
-        if(gasto.getComprador() != null)
+        if (gasto.getComprador() != null)
             gastoDTO.setIdComprador(gasto.getComprador().getId());
-        if(gasto.getViaje() != null)
+        if (gasto.getViaje() != null)
             gastoDTO.setIdViaje(gasto.getViaje().getId());
 
         return gastoDTO;
     }
 
-    private Gasto  parseEntity(GastoDTO gastoDTO){
+    private Gasto parseEntity(GastoDTO gastoDTO) {
         Gasto gasto = new Gasto();
 
-        if(gastoDTO.getIdViaje() != 0)
+        if (gastoDTO.getIdViaje() != 0)
             gasto.setViaje(viajeService.findById(gastoDTO.getIdViaje()));
         gasto.setMonto(gastoDTO.getMonto());
-        if(gastoDTO.getIdComprador() != 0)
+        if (gastoDTO.getIdComprador() != 0)
             gasto.setComprador(miembroService.findById(gastoDTO.getIdComprador()));
         gasto.setNombreGasto(gastoDTO.getNombreGasto());
 
@@ -133,7 +147,7 @@ public class GastoController {
         double montoxpersona = monto / miembros.size();
         montoxpersona = Math.round(montoxpersona * 100.0) / 100.0;
 
-        for (Miembro deudor: miembros) {
+        for (Miembro deudor : miembros) {
             if (deudor.getId() != idComprador && deudor.getViaje().getId() == idViaje) {
                 deudor.setBalance(deudor.getBalance() + montoxpersona);
                 miembroService.update(deudor.getId(), deudor);
@@ -144,24 +158,25 @@ public class GastoController {
         comprador.setBalance(comprador.getBalance() - montoxpersona);
         miembroService.update(comprador.getId(), comprador);
     }
+
     // TODO no se puede cambiar de viaje el gasto //
     private void actualizarGasto(GastoDTO gastoDTO, Gasto gastoBD) {
         double montoOrginial = gastoBD.getMonto();
         double montoNuevo = gastoDTO.getMonto();
 
 
-        if(montoNuevo == montoOrginial){
+        if (montoNuevo == montoOrginial) {
             return;
         }
 
-        double diferencia =  montoNuevo - montoOrginial;
+        double diferencia = montoNuevo - montoOrginial;
 
         List<Miembro> miembros = miembroService.findbyIdVieje(gastoBD.getViaje().getId());
 
         double montoxpersona = diferencia / miembros.size();
         montoxpersona = Math.round(montoxpersona * 100.0) / 100.0;
 
-        for (Miembro deudor: miembros) {
+        for (Miembro deudor : miembros) {
             if (deudor.getId() != gastoDTO.getIdComprador() && deudor.getViaje().getId() == gastoDTO.getIdViaje()) {
                 deudor.setBalance(deudor.getBalance() + montoxpersona);
                 miembroService.update(deudor.getId(), deudor);
@@ -173,7 +188,7 @@ public class GastoController {
         miembroService.update(comprador.getId(), comprador);
     }
 
-    private void borrarGasto(GastoDTO gastoDTO){
+    private void borrarGasto(GastoDTO gastoDTO) {
         double monto = gastoDTO.getMonto();
         Long idComprador = gastoDTO.getIdComprador();
         long idViaje = gastoDTO.getIdViaje();
@@ -183,7 +198,7 @@ public class GastoController {
         double montoxpersona = monto / miembros.size();
         montoxpersona = Math.round(montoxpersona * 100.0) / 100.0;
 
-        for (Miembro deudor: miembros) {
+        for (Miembro deudor : miembros) {
             if (deudor.getId() != idComprador && deudor.getViaje().getId() == idViaje) {
                 deudor.setBalance(deudor.getBalance() - montoxpersona);
                 miembroService.update(deudor.getId(), deudor);
@@ -193,5 +208,12 @@ public class GastoController {
         Miembro comprador = miembroService.findById(idComprador);
         comprador.setBalance(comprador.getBalance() + montoxpersona);
         miembroService.update(comprador.getId(), comprador);
+    }
+
+    private double montoXPersoona(List<Miembro> miembros, double monto) {
+        double montoxpersona = monto / miembros.size();
+        montoxpersona = Math.round(montoxpersona * 100.0) / 100.0;
+
+        return montoxpersona;
     }
 }

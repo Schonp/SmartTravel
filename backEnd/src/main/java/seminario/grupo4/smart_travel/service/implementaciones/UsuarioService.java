@@ -38,7 +38,7 @@ public class UsuarioService implements IUsuarioService {
 
         if (usuarioActual != null){
             usuarioActual.setNombreUs(usuario.getNombreUs());
-            usuarioActual.setContraseña(usuario.getContraseña());
+            //usuarioActual.setContraseña(usuario.getContraseña());
             usuarioActual.setEmail(usuario.getEmail());
 
 
