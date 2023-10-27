@@ -10,6 +10,7 @@ public class Gasto {
     private long id;
     private String nombreGasto;
     private double monto;
+    private String tipo;
     @ManyToOne
     @JoinColumn(name = "comprador_id")
     private Miembro comprador;
@@ -21,10 +22,10 @@ public class Gasto {
     public Gasto() {
     }
 
-    public Gasto(long id, String nombreGasto, double monto) {
-        this.id = id;
+    public Gasto(String nombreGasto, double monto, String tipo) {
         this.nombreGasto = nombreGasto;
         this.monto = monto;
+        this.tipo = tipo;
     }
 
     public long getId() {
@@ -47,6 +48,10 @@ public class Gasto {
         return viaje;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -65,6 +70,10 @@ public class Gasto {
 
     public void setViaje(Viaje viaje) {
         this.viaje = viaje;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override

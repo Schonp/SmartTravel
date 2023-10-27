@@ -20,9 +20,13 @@ public class Viaje {
     private List<Miembro> miembros;
     @OneToMany(mappedBy = "viaje")
     private List<Gasto> gastos;
+    @OneToMany(mappedBy = "viaje")
+    private List<Documento> documentos;
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+
 
 
     public Viaje() {
@@ -63,6 +67,10 @@ public class Viaje {
         return usuario;
     }
 
+    public List<Documento> getDocumentos() {
+        return documentos;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -89,6 +97,10 @@ public class Viaje {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public void setDocumentos(List<Documento> documentos) {
+        this.documentos = documentos;
     }
 
     @Override

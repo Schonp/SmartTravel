@@ -7,15 +7,17 @@ import seminario.grupo4.smart_travel.model.entity.Viaje;
 public class GastoDTO {
     private String nombreGasto;
     private double monto;
+    private String tipo;
     private long idComprador;
     private long idViaje;
 
     public GastoDTO() {
     }
 
-    public GastoDTO(String nombreGasto, double monto, long idComprador, long idViaje) {
+    public GastoDTO(String nombreGasto, double monto, String tipo, long idComprador, long idViaje) {
         this.nombreGasto = nombreGasto;
         this.monto = monto;
+        this.tipo = tipo;
         this.idComprador = idComprador;
         this.idViaje = idViaje;
     }
@@ -36,6 +38,10 @@ public class GastoDTO {
         return idViaje;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public void setNombreGasto(String nombreGasto) {
         this.nombreGasto = nombreGasto;
     }
@@ -50,6 +56,10 @@ public class GastoDTO {
 
     public void setIdViaje(long idViaje) {
         this.idViaje = idViaje;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @Override
