@@ -1,6 +1,5 @@
 package seminario.grupo4.smart_travel.controllers;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,19 +13,18 @@ import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
 @RestController
 @RequestMapping("/documento")
 public class DocumentoController {
-
     @Autowired
     IUploadFilesService uploadFilesService;
-
     @Autowired
     IViajeService viajeService;
 
     @PostMapping("")
-    private ResponseEntity<String> uploadPic(@RequestParam MultipartFile file, @RequestParam Long idViaje) throws Exception{
+    private ResponseEntity<String> uploadPic(@RequestParam MultipartFile file, @RequestParam Long idViaje, @RequestParam String tipo) throws Exception{
+
         if(viajeService.findById(idViaje) == null)
             return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(uploadFilesService.handleFileUpload(file, viajeService.findById(idViaje)), null, HttpStatus.OK);
+        return new ResponseEntity<>(uploadFilesService.handleFileUpload(file, viajeService.findById(idViaje), tipo), null, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

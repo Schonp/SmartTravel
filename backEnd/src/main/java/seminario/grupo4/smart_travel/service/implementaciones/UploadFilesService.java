@@ -17,7 +17,7 @@ public class UploadFilesService implements IUploadFilesService {
 
 
     @Override
-    public String handleFileUpload(MultipartFile file, Viaje viaje) throws Exception {
+    public String handleFileUpload(MultipartFile file, Viaje viaje, String tipo) throws Exception {
         try{
             byte[] bytes = file.getBytes();
             String fileOriginalName = file.getOriginalFilename();
@@ -26,7 +26,7 @@ public class UploadFilesService implements IUploadFilesService {
                 throw new Exception("El archivo no es un pdf");
             }
 
-            Documento documento = new Documento(fileOriginalName, bytes, viaje);
+            Documento documento = new Documento(fileOriginalName, bytes, tipo, viaje);
 
             documentoDAO.save(documento);
 

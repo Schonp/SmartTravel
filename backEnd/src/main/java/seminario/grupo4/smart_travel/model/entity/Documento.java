@@ -19,6 +19,7 @@ public class Documento {
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] datosDocumento;
+    private String tipo;
     @ManyToOne
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
@@ -26,8 +27,9 @@ public class Documento {
 
     }
 
-    public Documento(String nombreDocumento, byte[] datosDocumento, Viaje viaje) {
+    public Documento(String nombreDocumento, byte[] datosDocumento, String tipo, Viaje viaje) {
         this.nombreDocumento = nombreDocumento;
+        this.tipo = tipo;
         this.datosDocumento = datosDocumento;
         this.viaje = viaje;
     }
