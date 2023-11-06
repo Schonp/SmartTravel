@@ -1,9 +1,13 @@
 package seminario.grupo4.smart_travel.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "gastos")
+@Getter
+@Setter
 public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,54 +32,6 @@ public class Gasto {
         this.tipo = tipo;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getNombreGasto() {
-        return nombreGasto;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public Miembro getComprador() {
-        return comprador;
-    }
-
-    public Viaje getViaje() {
-        return viaje;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setNombreGasto(String nombreGasto) {
-        this.nombreGasto = nombreGasto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    public void setComprador(Miembro comprador) {
-        this.comprador = comprador;
-    }
-
-    public void setViaje(Viaje viaje) {
-        this.viaje = viaje;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     @Override
     public String toString() {
         return "Gasto{" +
@@ -83,7 +39,6 @@ public class Gasto {
                 ", nombreGasto='" + nombreGasto + '\'' +
                 ", monto=" + monto +
                 ", comprador=" + comprador +
-                ", viaje=" + viaje +
                 '}';
     }
 }

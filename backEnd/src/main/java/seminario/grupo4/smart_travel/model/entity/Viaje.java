@@ -1,29 +1,35 @@
 package seminario.grupo4.smart_travel.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "viajes")
+@Getter
+@Setter
 public class Viaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombreViaje;
     @OneToMany(mappedBy = "viaje")
-    private List<Miembro> miembros;
+    private List<Miembro> miembros = new ArrayList<>();
     @OneToMany(mappedBy = "viaje")
-    private List<Gasto> gastos;
+    private List<Gasto> gastos= new ArrayList<>();
     @OneToMany(mappedBy = "viaje")
-    private List<Documento> documentos;
+    private List<Documento> documentos= new ArrayList<>();
+    @OneToMany(mappedBy = "viaje")
+    private List<Destino> destinos= new ArrayList<>();
+    @OneToMany(mappedBy = "viaje")
+    private List<Actividades> actividades = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
-
-
 
     public Viaje() {
     }
@@ -31,54 +37,6 @@ public class Viaje {
     public Viaje(Long id, String nombreViaje) {
         this.id = id;
         this.nombreViaje = nombreViaje;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNombreViaje() {
-        return nombreViaje;
-    }
-
-    public List<Miembro> getMiembros() {
-        return miembros;
-    }
-
-    public List<Gasto> getGastos() {
-        return gastos;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public List<Documento> getDocumentos() {
-        return documentos;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNombreViaje(String nombreViaje) {
-        this.nombreViaje = nombreViaje;
-    }
-
-    public void setMiembros(List<Miembro> miembros) {
-        this.miembros = miembros;
-    }
-
-    public void setGastos(List<Gasto> gastos) {
-        this.gastos = gastos;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setDocumentos(List<Documento> documentos) {
-        this.documentos = documentos;
     }
 
     @Override
