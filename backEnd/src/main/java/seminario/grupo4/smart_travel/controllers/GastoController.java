@@ -10,6 +10,7 @@ import seminario.grupo4.smart_travel.service.interfaces.IGastoService;
 import seminario.grupo4.smart_travel.service.interfaces.IMiembroService;
 import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class GastoController {
 
             gastoService.save(gasto);
 
-            comprar(gasto); // -- AHORA SE ACTUALIZA LOS BALANCES DE LOS MIEMBROS DEL VIAJE //
+            comprar(gasto);
 
             return new ResponseEntity<>(gastoDTO, null, 201);
         } else {
@@ -110,20 +111,27 @@ public class GastoController {
         List<Miembro> miembros = miembroService.findbyIdVieje(gasto.getViaje().getId());
         double montoxpersona = montoXPersoona(miembros, gasto.getMonto());
 
+        System.out.println("DUEDAS : " + pagador.getGastos());
+        System.out.println("GASTO  : "+gasto);
+
         if (!pagador.getGastos().contains(gasto)){      // TODO no se porque salta a esto, no se acutaliza las listas
             return new ResponseEntity<>("Lo sentimos, el miembro no tiene este gasto." + idPagador, null, 404);
         }
 
-        pagador.setBalance(pagador.getBalance() - montoxpersona);
+        pagador.setBalance(pagador.getBalance() + montoxpersona);
 
         List<Gasto> gastos = pagador.getGastos();
-        gastos.remove(gasto);
+
+
+        gastos.remove(gasto);   // NO SE ELIMINAAA
         pagador.setGastos(gastos);
+
+        System.out.println("GASTOS UPDATE: "+pagador.getGastos());
 
         miembroService.update(pagador.getId(), pagador);
 
         Miembro comprador = gasto.getComprador();
-        comprador.setBalance(comprador.getBalance() + montoxpersona);
+        comprador.setBalance(comprador.getBalance() - montoxpersona);
 
         miembroService.update(comprador.getId(), comprador);
 
@@ -170,9 +178,14 @@ public class GastoController {
 
         for (Miembro deudor : miembros) {
             if (deudor.getId() != idComprador && deudor.getViaje().getId() == idViaje) {
+                System.out.println(deudor.getNombre());
+
                 deudor.setBalance(deudor.getBalance() + montoxpersona);
+
                 List<Gasto> duedas = deudor.getGastos();
+
                 duedas.add(gasto);
+
                 deudor.setGastos(duedas);
 
                 miembroService.update(deudor.getId(), deudor);
@@ -180,8 +193,14 @@ public class GastoController {
         }
 
         Miembro comprador = miembroService.findById(idComprador);
+
         comprador.setBalance(comprador.getBalance() - montoxpersona);
+
         miembroService.update(comprador.getId(), comprador);
+
+        for (Miembro m: miembroService.findAll()) {
+            System.out.println(m.getGastos());
+        }
     }
 
     // TODO no se puede cambiar de viaje el gasto //
@@ -239,8 +258,14 @@ public class GastoController {
         }
 
         Miembro comprador = miembroService.findById(idComprador);
+
         comprador.setBalance(comprador.getBalance() + montoxpersona);
+
         miembroService.update(comprador.getId(), comprador);
+
+        for (Miembro m: miembroService.findAll()) {
+            System.out.println(m.getGastos());
+        }
     }
 
     private double montoXPersoona(List<Miembro> miembros, double monto) {

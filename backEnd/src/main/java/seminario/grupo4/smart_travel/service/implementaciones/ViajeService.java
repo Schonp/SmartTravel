@@ -34,8 +34,6 @@ public class ViajeService implements IViajeService {
 
         if (viajeActual != null){
             viajeActual.setNombreViaje(viaje.getNombreViaje());
-            viajeActual.setFechaInicio(viaje.getFechaInicio());
-            viajeActual.setFechaFin(viaje.getFechaFin());
             viajeActual.setMiembros(viaje.getMiembros());
             viajeActual.setGastos(viaje.getGastos());
             viajeActual.setUsuario(viaje.getUsuario());

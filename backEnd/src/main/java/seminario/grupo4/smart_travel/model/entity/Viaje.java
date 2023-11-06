@@ -12,10 +12,6 @@ public class Viaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombreViaje;
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
     @OneToMany(mappedBy = "viaje")
     private List<Miembro> miembros;
     @OneToMany(mappedBy = "viaje")
@@ -32,11 +28,9 @@ public class Viaje {
     public Viaje() {
     }
 
-    public Viaje(Long id, String nombreViaje, Date fechaInicio, Date fechaFin) {
+    public Viaje(Long id, String nombreViaje) {
         this.id = id;
         this.nombreViaje = nombreViaje;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
     }
 
     public Long getId() {
@@ -45,14 +39,6 @@ public class Viaje {
 
     public String getNombreViaje() {
         return nombreViaje;
-    }
-
-    public Date getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public Date getFechaFin() {
-        return fechaFin;
     }
 
     public List<Miembro> getMiembros() {
@@ -79,14 +65,6 @@ public class Viaje {
         this.nombreViaje = nombreViaje;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
-    }
-
     public void setMiembros(List<Miembro> miembros) {
         this.miembros = miembros;
     }
@@ -108,8 +86,6 @@ public class Viaje {
         return "Viaje{" +
                 "id=" + id +
                 ", nombreViaje='" + nombreViaje + '\'' +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFin=" + fechaFin +
                 '}';
     }
 }
