@@ -3,18 +3,20 @@ package seminario.grupo4.smart_travel.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class ActividadesDTO {
     private String nombreActividad;
     private String lugar;
-    private String fecha;
+    private Date fecha;
     private Long viajeId;
 
     public ActividadesDTO() {
     }
 
-    public ActividadesDTO(String nombreActividad, String lugar, String fecha, Long viajeId) {
+    public ActividadesDTO(String nombreActividad, String lugar, Date fecha, Long viajeId) {
         this.nombreActividad = nombreActividad;
         this.lugar = lugar;
         this.fecha = fecha;

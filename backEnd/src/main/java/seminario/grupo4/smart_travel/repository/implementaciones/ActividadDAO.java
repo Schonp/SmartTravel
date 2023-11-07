@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Actividades;
 import seminario.grupo4.smart_travel.repository.interfaces.IActividadDAO;
 
@@ -15,6 +16,7 @@ public class ActividadDAO implements IActividadDAO {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
+    @Transactional(readOnly = true)
     public List<Actividades> findAll() {
         Session session = entityManager.unwrap(Session.class);
 
@@ -25,6 +27,7 @@ public class ActividadDAO implements IActividadDAO {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Actividades findById(long id) {
         Session session = entityManager.unwrap(Session.class);
 
@@ -34,6 +37,7 @@ public class ActividadDAO implements IActividadDAO {
     }
 
     @Override
+    @Transactional
     public void save(Actividades actividades) {
         Session session = entityManager.unwrap(Session.class);
 
@@ -41,6 +45,7 @@ public class ActividadDAO implements IActividadDAO {
     }
 
     @Override
+    @Transactional
     public void deleteById(long id) {
         Session session = entityManager.unwrap(Session.class);
 

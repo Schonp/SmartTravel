@@ -3,6 +3,7 @@ package seminario.grupo4.smart_travel.service.implementaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import seminario.grupo4.smart_travel.model.entity.Destino;
+import seminario.grupo4.smart_travel.repository.interfaces.IDestinoDAO;
 import seminario.grupo4.smart_travel.service.interfaces.IDestinoService;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 public class DestinoService implements IDestinoService {
     @Autowired
-    private IDestinoService destinoDAO;
+    private IDestinoDAO destinoDAO;
 
     @Override
     public List<Destino> findAll() {
@@ -35,6 +36,8 @@ public class DestinoService implements IDestinoService {
            destinoActual.setCiudadDestino(destino.getCiudadDestino());
            destinoActual.setFechaInicio(destino.getFechaInicio());
            destinoActual.setFechaFin(destino.getFechaFin());
+
+           destinoDAO.save(destinoActual);
         }
     }
 

@@ -1,6 +1,7 @@
 package seminario.grupo4.smart_travel.service.implementaciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import seminario.grupo4.smart_travel.model.entity.Actividades;
 import seminario.grupo4.smart_travel.repository.interfaces.IActividadDAO;
@@ -9,7 +10,6 @@ import seminario.grupo4.smart_travel.service.interfaces.IActividadesService;
 import java.util.List;
 @Service
 public class ActividadesService implements IActividadesService {
-
     @Autowired
     private IActividadDAO actividadDAO;
 
@@ -36,6 +36,8 @@ public class ActividadesService implements IActividadesService {
             actividadesActual.setNombreActividad(actividades.getNombreActividad());
             actividadesActual.setFecha(actividades.getFecha());
             actividadesActual.setLugar(actividades.getLugar());
+
+            actividadDAO.save(actividadesActual);
         }
     }
 
