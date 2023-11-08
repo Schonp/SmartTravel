@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")git
+@CrossOrigin(origins = "*")
 @RequestMapping("/actividad")
 public class ActividadController {
     @Autowired
