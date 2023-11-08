@@ -1,15 +1,20 @@
 package seminario.grupo4.smart_travel.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "gastos")
+@Getter
+@Setter
 public class Gasto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombreGasto;
     private double monto;
+    private String tipo;
     @ManyToOne
     @JoinColumn(name = "comprador_id")
     private Miembro comprador;
@@ -21,50 +26,10 @@ public class Gasto {
     public Gasto() {
     }
 
-    public Gasto(long id, String nombreGasto, double monto) {
-        this.id = id;
+    public Gasto(String nombreGasto, double monto, String tipo) {
         this.nombreGasto = nombreGasto;
         this.monto = monto;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getNombreGasto() {
-        return nombreGasto;
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public Miembro getComprador() {
-        return comprador;
-    }
-
-    public Viaje getViaje() {
-        return viaje;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setNombreGasto(String nombreGasto) {
-        this.nombreGasto = nombreGasto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    public void setComprador(Miembro comprador) {
-        this.comprador = comprador;
-    }
-
-    public void setViaje(Viaje viaje) {
-        this.viaje = viaje;
+        this.tipo = tipo;
     }
 
     @Override
@@ -74,7 +39,6 @@ public class Gasto {
                 ", nombreGasto='" + nombreGasto + '\'' +
                 ", monto=" + monto +
                 ", comprador=" + comprador +
-                ", viaje=" + viaje +
                 '}';
     }
 }

@@ -40,11 +40,11 @@ public class MiembroService implements IMiembroService {
         Miembro miembroViejo = miembroDAO.findById(id);
 
         if(miembroViejo != null){
-
             miembroViejo.setNombre(miembro.getNombre());
             miembroViejo.setViaje(miembro.getViaje());
             miembroViejo.setEmail(miembro.getEmail());
             miembroViejo.setBalance(miembro.getBalance());
+            miembroViejo.setGastos(miembro.getGastos());
 
             miembroDAO.save(miembroViejo);
         }

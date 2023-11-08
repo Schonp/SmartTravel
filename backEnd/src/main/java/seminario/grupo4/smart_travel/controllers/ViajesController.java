@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/viaje")
 public class ViajesController {
 
@@ -84,8 +85,7 @@ public class ViajesController {
         ViajeDTO viajeDTO = new ViajeDTO();
 
         viajeDTO.setNombreViaje(v.getNombreViaje());
-        viajeDTO.setFechaInicio(v.getFechaInicio());
-        viajeDTO.setFechaFin(v.getFechaFin());
+
         if(v.getUsuario() != null)
             viajeDTO.setIdUsuario(v.getUsuario().getId());
 
@@ -96,8 +96,7 @@ public class ViajesController {
         Viaje viaje = new Viaje();
 
         viaje.setNombreViaje(viajeDTO.getNombreViaje());
-        viaje.setFechaInicio(viajeDTO.getFechaInicio());
-        viaje.setFechaFin(viajeDTO.getFechaFin());
+
         if(viajeDTO.getIdUsuario() != 0)
             viaje.setUsuario(usuarioService.findById(viajeDTO.getIdUsuario()));
 

@@ -14,8 +14,6 @@ import java.util.List;
 @Setter
 public class ViajeDTO {
     private String nombreViaje;
-    private Date fechaInicio;
-    private Date fechaFin;
     private long idUsuario;
 
     public ViajeDTO() {
@@ -23,8 +21,6 @@ public class ViajeDTO {
 
     public ViajeDTO(String nombreViaje, Date fechaInicio, Date fechaFin, long idUsuario) {
         this.nombreViaje = nombreViaje;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.idUsuario = idUsuario;
     }
 
@@ -32,8 +28,6 @@ public class ViajeDTO {
     public String toString() {
         return "ViajeDTO{" +
                 "nombreViaje='" + nombreViaje + '\'' +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFin=" + fechaFin +
                 ", idUsuario=" + idUsuario +
                 '}';
     }
