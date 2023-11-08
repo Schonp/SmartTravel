@@ -11,6 +11,7 @@ import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/documento")
 public class DocumentoController {
     @Autowired

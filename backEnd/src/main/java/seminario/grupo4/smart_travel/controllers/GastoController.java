@@ -17,6 +17,7 @@ import java.util.List;
 // TODO REFACTOR DE LOS METODOS NO SE ENTIENDE NADA
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/gasto")
 public class GastoController {
     @Autowired
