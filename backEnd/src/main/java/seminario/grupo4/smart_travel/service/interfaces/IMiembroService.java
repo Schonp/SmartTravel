@@ -13,4 +13,5 @@ public interface IMiembroService {
     void update(long id,Miembro miembro);
     void deleteById(long id);
     List<Miembro> findByViaje(Viaje viaje);
+    Miembro findByMiembro(Miembro miembro);
 }

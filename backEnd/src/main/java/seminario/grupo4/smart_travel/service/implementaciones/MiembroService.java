@@ -60,4 +60,9 @@ public class MiembroService implements IMiembroService {
     public List<Miembro> findByViaje(Viaje viaje) {
         return miembroDAO.findByViaje(viaje);
     }
+
+    @Override
+    public Miembro findByMiembro(Miembro miembro) {
+        return miembroDAO.findByMiembro(miembro);
+    }
 }

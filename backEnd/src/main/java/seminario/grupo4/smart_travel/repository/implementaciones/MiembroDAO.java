@@ -76,4 +76,24 @@ public class MiembroDAO implements IMiembroDAO {
 
         return miembros;
     }
+
+    @Override
+    public Miembro findByMiembro(Miembro miembro) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        System.out.println(miembro);
+
+        String nombre = miembro.getNombre();
+        String email = miembro.getEmail();
+        double balance = miembro.getBalance();
+        Viaje viaje = miembro.getViaje();
+
+        Query<Miembro> q = currentSession.createQuery("FROM Miembro WHERE nombre=:nombre AND email=:email AND balance=:balance AND viaje=:viaje", Miembro.class);
+        q.setParameter("nombre", nombre);
+        q.setParameter("email", email);
+        q.setParameter("balance", balance);
+        q.setParameter("viaje", viaje);
+
+        return q.getSingleResult();
+    }
 }

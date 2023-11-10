@@ -61,7 +61,10 @@ public class MiembroController {
 
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody MiembroDTO miembroDTO){
-        miembroService.save(parseEntity(miembroDTO));
+        Miembro miembro = parseEntity(miembroDTO);
+        miembro.setBalance(0);
+        miembro.setViaje(viajeService.findById(1)); // TODO BORRAR
+        miembroService.save(miembro);
         return new ResponseEntity<>(miembroDTO,null,201);
     }
 
@@ -87,6 +90,20 @@ public class MiembroController {
             return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado. " + id, null, 404);
 
         miembroService.deleteById(id);
+
+        return new ResponseEntity<>("El miembro ha sido eliminado correctamente.", null, 200);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<String> deleteFroDto(@RequestBody MiembroDTO miembroDTO) {
+        Miembro miembroDB = miembroService.findByMiembro(parseEntity(miembroDTO));
+
+        System.out.println(miembroDB);
+
+        if (miembroDB == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado. " + miembroDTO.getNombre(), null, 404);
+
+        miembroService.deleteById(miembroDB.getId());
 
         return new ResponseEntity<>("El miembro ha sido eliminado correctamente.", null, 200);
     }

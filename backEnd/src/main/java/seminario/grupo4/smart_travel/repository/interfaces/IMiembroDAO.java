@@ -13,4 +13,5 @@ public interface IMiembroDAO {
     void deleteById(long id);
     List<Miembro> findbyIdVieje(long id);
     List<Miembro> findByViaje(Viaje viaje);
+    Miembro findByMiembro(Miembro miembro);
 }
