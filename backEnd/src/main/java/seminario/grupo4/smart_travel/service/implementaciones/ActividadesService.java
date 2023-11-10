@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import seminario.grupo4.smart_travel.model.entity.Actividades;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IActividadDAO;
 import seminario.grupo4.smart_travel.service.interfaces.IActividadesService;
 
@@ -44,5 +45,10 @@ public class ActividadesService implements IActividadesService {
     @Override
     public void deleteById(long id) {
         actividadDAO.deleteById(id);
+    }
+
+    @Override
+    public List<Actividades> findByViaje(Viaje viaje) {
+        return actividadDAO.findByViaje(viaje);
     }
 }

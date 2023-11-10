@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Actividades;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IActividadDAO;
 
 import java.util.List;
@@ -52,5 +53,16 @@ public class ActividadDAO implements IActividadDAO {
         Query<Actividades> query = session.createQuery("delete from Actividades where id=:idActividades");
         query.setParameter("idActividades",id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Actividades> findByViaje(Viaje viaje) {
+        Session session = entityManager.unwrap(Session.class);
+
+        Query<Actividades> q = session.createQuery("FROM Actividades WHERE viaje=:viaje", Actividades.class);
+        q.setParameter("viaje", viaje);
+        List<Actividades> actividades = q.getResultList();
+
+        return actividades;
     }
 }
