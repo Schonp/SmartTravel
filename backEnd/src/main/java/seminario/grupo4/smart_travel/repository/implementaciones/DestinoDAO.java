@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Destino;
 import seminario.grupo4.smart_travel.model.entity.Gasto;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IDestinoDAO;
 
 import java.util.List;
@@ -53,5 +54,16 @@ public class DestinoDAO implements IDestinoDAO {
         Query<Gasto> query = session.createQuery("delete from Destino where id=:idDestino");
         query.setParameter("idDestino",id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Destino> findByViaje(Viaje viaje) {
+        Session session = entityManager.unwrap(Session.class);
+
+        Query<Destino> q = session.createQuery("FROM Destino where viaje=:viaje", Destino.class);
+        q.setParameter("viaje", viaje);
+        List<Destino> retorno = q.getResultList();
+
+        return retorno;
     }
 }

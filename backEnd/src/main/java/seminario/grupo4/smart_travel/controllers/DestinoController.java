@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import seminario.grupo4.smart_travel.model.dto.DestinoDTO;
 import seminario.grupo4.smart_travel.model.entity.Destino;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.service.interfaces.IDestinoService;
 import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
 
@@ -41,6 +42,22 @@ public class DestinoController {
         } else {
             return new ResponseEntity<>(parseDTO(destino), null, 200);
         }
+    }
+
+    @GetMapping("/viaje/{id}")
+    public ResponseEntity<?> obtenesDestinoPorViaje(@PathVariable Long id){
+        Viaje viaje = viajeService.findById(id);
+
+        if (viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id, null, 404);
+
+        List<DestinoDTO> destinoDTOList = new ArrayList<>();
+
+        for (Destino d : destinoService.findByViaje(viaje)){
+            destinoDTOList.add(parseDTO(d));
+        }
+
+        return new ResponseEntity<>(destinoDTOList, null, 200);
     }
 
     @PostMapping("")
