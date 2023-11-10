@@ -50,9 +50,19 @@ public class ViajeDAO implements IViajeDAO {
     public void deleteById(long id) {
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Query query = currentSession.createQuery("delete from Viaje where id=:id");
+        Query<Viaje> query = currentSession.createQuery("delete from Viaje where id=:id", Viaje.class);
 
         query.setParameter("id",id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Viaje> findByUsuario(Usuario usuario) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Viaje> query = currentSession.createQuery("from Viaje where usuario=:usuario", Viaje.class);
+        query.setParameter("usuario", usuario);
+
+        return query.getResultList();
     }
 }

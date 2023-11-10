@@ -2,6 +2,7 @@ package seminario.grupo4.smart_travel.service.implementaciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import seminario.grupo4.smart_travel.model.entity.Usuario;
 import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IViajeDAO;
 import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
@@ -45,5 +46,10 @@ public class ViajeService implements IViajeService {
     @Override
     public void deleteById(long id) {
         viajeDAO.deleteById(id);
+    }
+
+    @Override
+    public List<Viaje> findByUsuario(Usuario usuario) {
+        return viajeDAO.findByUsuario(usuario);
     }
 }
