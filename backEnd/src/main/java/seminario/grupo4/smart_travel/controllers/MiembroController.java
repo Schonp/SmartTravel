@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import seminario.grupo4.smart_travel.model.dto.MiembroDTO;
 import seminario.grupo4.smart_travel.model.entity.Miembro;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.service.interfaces.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,22 @@ public class MiembroController {
             return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún miembro con el id ingresado." + id,null,404);
 
         return new ResponseEntity<>(parseDTO(miembro),null,200);
+    }
+
+    @GetMapping("/viaje/{id}")
+    public ResponseEntity<?> getByViajeId(@PathVariable Long id){
+        Viaje viaje = viajeService.findById(id);
+
+        if(viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id,null,404);
+
+        List<MiembroDTO> miembroDTOList = new ArrayList<>();
+
+        for (Miembro m:miembroService.findByViaje(viaje)) {
+            miembroDTOList.add(parseDTO(m));
+        }
+
+        return new ResponseEntity<>(miembroDTOList,null,200);
     }
 
     @PostMapping("")

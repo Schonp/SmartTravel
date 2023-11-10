@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Gasto;
 import seminario.grupo4.smart_travel.model.entity.Usuario;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IGastoDAO;
 
 import java.util.List;
@@ -48,8 +49,19 @@ public class GastoDAO implements IGastoDAO {
     @Transactional
     public void deleteById(long id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query query = currentSession.createQuery("delete from Gasto where id=:idGasto");
+        Query<Gasto> query = currentSession.createQuery("delete from Gasto where id=:idGasto");
         query.setParameter("idGasto",id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Gasto> findByViaje(Viaje viaje) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Gasto> q = currentSession.createQuery("FROM Gasto WHERE viaje = :viaje", Gasto.class);
+        q.setParameter("viaje", viaje);
+        List<Gasto> gastos = q.getResultList();
+
+        return gastos;
     }
 }

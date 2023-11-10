@@ -7,6 +7,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import seminario.grupo4.smart_travel.model.entity.Miembro;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.repository.interfaces.IMiembroDAO;
 
 import java.util.List;
@@ -63,5 +64,16 @@ public class MiembroDAO implements IMiembroDAO {
         query.setParameter("id", id);
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Miembro> findByViaje(Viaje viaje) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Miembro> q = currentSession.createQuery("FROM Miembro WHERE viaje = :viaje", Miembro.class);
+        q.setParameter("viaje", viaje);
+        List<Miembro> miembros = q.getResultList();
+
+        return miembros;
     }
 }

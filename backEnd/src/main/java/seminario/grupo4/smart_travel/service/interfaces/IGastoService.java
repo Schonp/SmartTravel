@@ -1,6 +1,7 @@
 package seminario.grupo4.smart_travel.service.interfaces;
 
 import seminario.grupo4.smart_travel.model.entity.Gasto;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ public interface IGastoService {
     void save(Gasto gasto);
     void update(long id,Gasto gasto);
     void deleteById(long id);
+    List<Gasto> findByViaje(Viaje viaje);
 }

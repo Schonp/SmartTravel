@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import seminario.grupo4.smart_travel.model.dto.GastoDTO;
 import seminario.grupo4.smart_travel.model.entity.Gasto;
 import seminario.grupo4.smart_travel.model.entity.Miembro;
+import seminario.grupo4.smart_travel.model.entity.Viaje;
 import seminario.grupo4.smart_travel.service.interfaces.IGastoService;
 import seminario.grupo4.smart_travel.service.interfaces.IMiembroService;
 import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
@@ -46,6 +47,22 @@ public class GastoController {
         } else {
             return new ResponseEntity<>(parseDTO(gasto), null, 200);
         }
+    }
+
+    @GetMapping("/viaje/{id}")
+    public ResponseEntity<?> obtenerGastosPorViaje(@PathVariable Long id) {
+        Viaje viaje = viajeService.findById(id);
+
+        if (viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id, null, 404);
+
+        List<GastoDTO> gastoDTOList = new ArrayList<>();
+
+        for (Gasto g : gastoService.findByViaje(viaje)) {
+            gastoDTOList.add(parseDTO(g));
+        }
+
+        return new ResponseEntity<>(gastoDTOList, null, 200);
     }
 
     // TODO CORRECION: AGREGAR EL GASTO A LA LISTA DEL MIEMRBO //
