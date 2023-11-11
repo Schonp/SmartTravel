@@ -20,12 +20,7 @@ form_service = discovery.build(
 
 # Create your views here.
 
-def index(request):
-    
-
-    viaje = "La Montaña"
-
-    pregunta = "Compramos el hotel 5 estrellas"
+def index(request, viaje, pregunta):
 
     NEW_FORM = {
         "info": {
@@ -77,10 +72,12 @@ def getUrl(request, id):
 
     retorno = result["responderUri"]
 
+    print(retorno)
+
     return HttpResponse(retorno)
 
 def getRtas(request, id):
-    result = form_service.forms().responses().list(formId="1ceIyoFiHeXNONkSkfUhSEt0p7NoWn9kVKSHZqrmy7g0").execute()
+    result = form_service.forms().responses().list(formId=id).execute()
 
     cont_si = 0
     cont_no = 0
@@ -102,6 +99,11 @@ def getRtas(request, id):
         "No": cont_no
     })
 
+
+def ping(request):
+    return HttpResponse("pong")
+    
+
 def extraerValor(respuestas):
     answers = respuestas["answers"]
 
@@ -110,3 +112,4 @@ def extraerValor(respuestas):
     retorno = dicc[0]["textAnswers"]["answers"][0]["value"]
 
     return retorno
+

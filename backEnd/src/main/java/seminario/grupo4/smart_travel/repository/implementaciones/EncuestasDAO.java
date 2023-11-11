@@ -42,8 +42,6 @@ public class EncuestasDAO implements IEncuestasDAO {
     @Transactional(readOnly = true)
     public List<Encuesta> getByViaje(Viaje viaje) {
         try {
-
-
             Session session = entityManager.unwrap(Session.class);
 
             Query<Encuesta> q = session.createQuery("FROM Encuesta WHERE viaje=:viaje", Encuesta.class);
