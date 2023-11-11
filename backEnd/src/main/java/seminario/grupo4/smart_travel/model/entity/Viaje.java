@@ -26,6 +26,8 @@ public class Viaje {
     private List<Destino> destinos= new ArrayList<>();
     @OneToMany(mappedBy = "viaje")
     private List<Actividades> actividades = new ArrayList<>();
+    @OneToMany(mappedBy = "viaje")
+    private List<Encuesta> encuestas = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
