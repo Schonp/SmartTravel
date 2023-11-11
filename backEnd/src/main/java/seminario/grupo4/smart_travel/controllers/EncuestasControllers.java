@@ -43,6 +43,7 @@ public class EncuestasControllers {
 
         return new ResponseEntity<>(parseDto(encuesta), null, HttpStatus.OK);
     }
+
     @GetMapping("/viaje/{idViaje}")
     public ResponseEntity<?> getByViaje(@PathVariable Long idViaje){
         Viaje viaje = viajeService.findById(idViaje);
@@ -57,16 +58,6 @@ public class EncuestasControllers {
         }
 
         return new ResponseEntity<>(dtos, null, HttpStatus.OK);
-    }
-
-    private EncuestaDTO parseDto(Encuesta e) {
-        EncuestaDTO dto = new EncuestaDTO();
-
-        dto.setUrl(e.getUrl());
-        dto.setFomsId(e.getFomsId());
-        dto.setViajeId(e.getViaje().getId());
-
-        return dto;
     }
 
     @GetMapping("rtas/{idForms}")
@@ -149,5 +140,15 @@ public class EncuestasControllers {
         e.setViaje(viajeService.findById(encuestaDTO.getViajeId()));
 
         return e;
+    }
+
+    private EncuestaDTO parseDto(Encuesta e) {
+        EncuestaDTO dto = new EncuestaDTO();
+
+        dto.setUrl(e.getUrl());
+        dto.setFomsId(e.getFomsId());
+        dto.setViajeId(e.getViaje().getId());
+
+        return dto;
     }
 }
