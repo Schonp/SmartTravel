@@ -39,6 +39,15 @@ public class DocumentoController {
         return ResponseEntity.ok().contentType(org.springframework.http.MediaType.APPLICATION_PDF).body(documento.getDatosDocumento());
     }
 
+    @GetMapping("/viaje/{idViaje}")
+    public ResponseEntity<?> getDocumentosViaje(@PathVariable Long idViaje) {
+
+        if(viajeService.findById(idViaje) == null)
+            return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
+
+        return ResponseEntity.ok().body(uploadFilesService.getByViaje(viajeService.findById(idViaje)));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteDocumento(@PathVariable Long id) {
         Documento documento = uploadFilesService.getById(id);

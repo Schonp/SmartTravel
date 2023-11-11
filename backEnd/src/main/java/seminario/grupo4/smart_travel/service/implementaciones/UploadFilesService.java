@@ -2,18 +2,24 @@ package seminario.grupo4.smart_travel.service.implementaciones;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import seminario.grupo4.smart_travel.model.dto.DocumentosDTO;
 import seminario.grupo4.smart_travel.model.entity.Documento;
 import seminario.grupo4.smart_travel.model.entity.Viaje;
+import seminario.grupo4.smart_travel.repository.implementaciones.DocumentoDAO;
 import seminario.grupo4.smart_travel.repository.interfaces.IDocumentoDAO;
 import seminario.grupo4.smart_travel.service.interfaces.IUploadFilesService;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UploadFilesService implements IUploadFilesService {
     @Autowired
     private IDocumentoDAO documentoDAO;
+    @Autowired
+    private DocumentoDAO documentoDAO2;
 
 
     @Override
@@ -47,4 +53,24 @@ public class UploadFilesService implements IUploadFilesService {
     public void delete(Documento documento) {
         documentoDAO.delete(documento);
     }
+
+    @Override
+    public List<DocumentosDTO> getByViaje(Viaje viaje) {
+        List<DocumentosDTO> documentos = new ArrayList<>();
+        DocumentosDTO aux = new DocumentosDTO();
+
+
+        for (Documento doc: documentoDAO2.getDocxViaje(viaje)) {
+            aux.setId(doc.getId());
+            aux.setNombreDocumento(doc.getNombreDocumento());
+            aux.setTipo(doc.getTipo());
+            aux.setIdViaje(doc.getViaje().getId());
+
+            documentos.add(aux);
+        }
+
+        return documentos;
+    }
+
+
 }
