@@ -19,11 +19,11 @@ public class DocumentoController {
     @Autowired
     IViajeService viajeService;
 
-    @PostMapping("/{idViaje}/tipo")
-    private ResponseEntity<String> uploadPic(@RequestParam MultipartFile file, @PathVariable Long idViaje, @PathVariable String tipo) throws Exception{
+    @PostMapping("/{idViaje}/{tipo}")
+    private ResponseEntity<String> uploadPic(@PathVariable Long idViaje, @PathVariable String tipo, @RequestParam MultipartFile file) throws Exception{
 
-        if(viajeService.findById(idViaje) == null)
-            return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
+      //  if(viajeService.findById(idViaje) == null)
+     //       return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(uploadFilesService.handleFileUpload(file, viajeService.findById(idViaje), tipo), null, HttpStatus.OK);
     }
