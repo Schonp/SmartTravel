@@ -19,8 +19,8 @@ public class DocumentoController {
     @Autowired
     IViajeService viajeService;
 
-    @PostMapping("")
-    private ResponseEntity<String> uploadPic(@RequestParam MultipartFile file, @RequestParam Long idViaje, @RequestParam String tipo) throws Exception{
+    @PostMapping("/{idViaje}/tipo")
+    private ResponseEntity<String> uploadPic(@RequestParam MultipartFile file, @PathVariable Long idViaje, @PathVariable String tipo) throws Exception{
 
         if(viajeService.findById(idViaje) == null)
             return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
