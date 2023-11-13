@@ -44,8 +44,16 @@ public class DocumentoController {
 
         if(viajeService.findById(idViaje) == null)
             return new ResponseEntity<>("El viaje con id " + idViaje + " no existe", null, HttpStatus.NOT_FOUND);
+                return ResponseEntity.ok().body(uploadFilesService.getByViaje(viajeService.findById(idViaje)));
+    }
 
-        return ResponseEntity.ok().body(uploadFilesService.getByViaje(viajeService.findById(idViaje)));
+    @GetMapping("/{id}/descargar")
+    public ResponseEntity<byte[]> descargarDocumento(@PathVariable Long id){
+
+        byte[] contenido = uploadFilesService.getContenido(id);
+
+        return new ResponseEntity<>(contenido,HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{id}")

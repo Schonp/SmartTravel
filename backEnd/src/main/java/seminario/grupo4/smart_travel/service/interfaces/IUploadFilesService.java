@@ -12,4 +12,5 @@ public interface IUploadFilesService {
     Documento getById(Long id);
     void delete(Documento documento);
     List<DocumentosDTO> getByViaje(Viaje viaje);
+    byte[] getContenido(Long id);
 }

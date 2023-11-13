@@ -57,20 +57,27 @@ public class UploadFilesService implements IUploadFilesService {
     @Override
     public List<DocumentosDTO> getByViaje(Viaje viaje) {
         List<DocumentosDTO> documentos = new ArrayList<>();
-        DocumentosDTO aux = new DocumentosDTO();
-
 
         for (Documento doc: documentoDAO2.getDocxViaje(viaje)) {
+            DocumentosDTO aux = new DocumentosDTO();
+
             aux.setId(doc.getId());
             aux.setNombreDocumento(doc.getNombreDocumento());
             aux.setTipo(doc.getTipo());
             aux.setIdViaje(doc.getViaje().getId());
 
             documentos.add(aux);
+
         }
 
         return documentos;
     }
 
+    @Override
+    public byte[] getContenido(Long id) {
 
+        byte[] contenido = documentoDAO2.getFile(id);
+
+        return contenido;
+    }
 }

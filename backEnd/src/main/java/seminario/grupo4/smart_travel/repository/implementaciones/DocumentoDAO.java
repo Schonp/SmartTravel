@@ -27,4 +27,16 @@ public class DocumentoDAO {
 
         return retorno;
     }
+
+    @Transactional(readOnly = true)
+    public byte[] getFile(Long id){
+        Session session = entityManager.unwrap(Session.class);
+
+        Query<Documento> q = session.createQuery("FROM Documento where id=:id", Documento.class);
+        q.setParameter("id", id);
+
+        Documento doc = q.uniqueResult();
+
+        return doc.getDatosDocumento();
+    }
 }
