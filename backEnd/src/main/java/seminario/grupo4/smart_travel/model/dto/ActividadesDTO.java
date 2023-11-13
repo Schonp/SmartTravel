@@ -11,7 +11,7 @@ public class ActividadesDTO {
     private String nombreActividad;
     private String lugar;
     private Date fecha;
-    private Long viajeId;
+    private long viajeId;
 
     public ActividadesDTO() {
     }

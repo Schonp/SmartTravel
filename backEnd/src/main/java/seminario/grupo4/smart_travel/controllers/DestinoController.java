@@ -1,5 +1,7 @@
 package seminario.grupo4.smart_travel.controllers;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import seminario.grupo4.smart_travel.service.interfaces.IDestinoService;
 import seminario.grupo4.smart_travel.service.interfaces.IViajeService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -58,6 +61,55 @@ public class DestinoController {
         }
 
         return new ResponseEntity<>(destinoDTOList, null, 200);
+    }
+
+    @GetMapping("destinoFinal/{id}")
+    public ResponseEntity<?> obtenerDestinoFinal(@PathVariable Long id){
+        Viaje viaje = viajeService.findById(id);
+
+        if (viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id, null, 404);
+
+        String retorno = "";
+
+        List<Destino> destinos = destinoService.findByViaje(viaje);
+
+        for (Destino d : destinos){
+            retorno = retorno + d.getCiudadDestino() + " - ";
+        }
+
+        retorno = retorno.substring(0, retorno.length() - 3);
+
+
+        return new ResponseEntity<>(retorno, null, 200);
+    }
+
+    @GetMapping("diasFinal/{id}")
+    public ResponseEntity<?> obtenerDiasViaje(@PathVariable Long id){
+        Viaje viaje = viajeService.findById(id);
+
+        if (viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id, null, 404);
+
+
+        List<Destino> destinos = destinoService.findByViaje(viaje);
+
+        Date fechaInicio = destinos.get(0).getFechaInicio();
+        Date fechaFin = destinos.get(0).getFechaFin();
+
+        for (Destino d : destinos){
+            if (fechaInicio.compareTo(d.getFechaInicio()) > 0){
+                fechaInicio = d.getFechaInicio();
+            }
+            if(fechaFin.compareTo(d.getFechaFin()) < 0){
+                fechaFin = d.getFechaFin();
+            }
+        }
+
+        System.out.println("Inicio: " + fechaInicio);
+        System.out.println("Fin: " + fechaFin);
+
+        return new ResponseEntity<>(new FechaTot(fechaInicio, fechaFin), null, 200);
     }
 
     @PostMapping("")
@@ -118,5 +170,29 @@ public class DestinoController {
         destino.setViaje(viajeService.findById(dto.getViajeId()));
 
         return destino;
+    }
+
+    // FECHA DE VUELTA
+    @Getter
+    @Setter
+    private class FechaTot{
+        private Date fechaInicio;
+        private Date fechaFin;
+
+        public FechaTot() {
+        }
+
+        public FechaTot(Date fechaInicio, Date fechaFin) {
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
+        }
+
+        @Override
+        public String toString() {
+            return "FechaTot{" +
+                    "fechaInicio=" + fechaInicio +
+                    ", fechaFin=" + fechaFin +
+                    '}';
+        }
     }
 }
