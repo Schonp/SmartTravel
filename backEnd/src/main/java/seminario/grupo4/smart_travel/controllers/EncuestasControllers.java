@@ -134,7 +134,9 @@ public class EncuestasControllers {
 
     private Encuesta parseEntity(EncuestaDTO encuestaDTO){
         Encuesta e = new Encuesta();
-
+        if(encuestaDTO.getEncuestaId()!= null){
+            e.setId(encuestaDTO.getEncuestaId());
+        }
         e.setUrl(encuestaDTO.getUrl());
         e.setFomsId(encuestaDTO.getFomsId());
         e.setViaje(viajeService.findById(encuestaDTO.getViajeId()));
@@ -145,6 +147,7 @@ public class EncuestasControllers {
     private EncuestaDTO parseDto(Encuesta e) {
         EncuestaDTO dto = new EncuestaDTO();
 
+        dto.setEncuestaId(e.getId());
         dto.setUrl(e.getUrl());
         dto.setFomsId(e.getFomsId());
         dto.setViajeId(e.getViaje().getId());

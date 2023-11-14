@@ -153,6 +153,7 @@ public class DestinoController {
     private DestinoDTO parseDTO(Destino destino) {
         DestinoDTO destinoDTO = new DestinoDTO();
 
+        destinoDTO.setDestinoId(destino.getId());
         destinoDTO.setCiudadDestino(destino.getCiudadDestino());
         destinoDTO.setFechaInicio(destino.getFechaInicio());
         destinoDTO.setFechaFin(destino.getFechaFin());
@@ -163,7 +164,9 @@ public class DestinoController {
 
     private Destino parseEntity(DestinoDTO dto){
         Destino destino = new Destino();
-
+        if(dto.getDestinoId()!= null){
+            destino.setId(dto.getDestinoId());
+        }
         destino.setCiudadDestino(dto.getCiudadDestino());
         destino.setFechaInicio(dto.getFechaInicio());
         destino.setFechaFin(dto.getFechaFin());

@@ -70,6 +70,7 @@ public class UsuarioController {
     private UsuarioDTO parseDTO(Usuario usuario) {
         UsuarioDTO retorno = new UsuarioDTO();
 
+        retorno.setUsuarioId(usuario.getId());
         retorno.setNombreUs(usuario.getNombreUs());
         retorno.setEmail(usuario.getEmail());;
 
@@ -78,7 +79,9 @@ public class UsuarioController {
 
     private Usuario parseEntity(UsuarioDTO usuarioDTO){
         Usuario usuario = new Usuario();
-
+        if(usuarioDTO.getUsuarioId()!= null){
+            usuario.setId(usuarioDTO.getUsuarioId());
+        }
         usuario.setNombreUs(usuarioDTO.getNombreUs());
         usuario.setEmail(usuarioDTO.getEmail());
 

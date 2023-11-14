@@ -12,6 +12,7 @@ public class MiembroDTO {
     private String email;
     private double balance;
     private Long idViaje;
+    private Long MiembroId;
 
     public MiembroDTO() {
     }

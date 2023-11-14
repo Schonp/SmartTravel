@@ -24,6 +24,7 @@ public class Destino {
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
 
+
     public Destino() {
     }
 

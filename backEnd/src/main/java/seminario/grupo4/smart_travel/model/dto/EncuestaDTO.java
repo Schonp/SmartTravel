@@ -9,6 +9,7 @@ public class EncuestaDTO {
     private String fomsId;
     private String url;
     private long viajeId;
+    private Long EncuestaId;
 
     public EncuestaDTO() {
     }
