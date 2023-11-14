@@ -112,6 +112,7 @@ public class MiembroController {
     private MiembroDTO parseDTO(Miembro u) {
         MiembroDTO miembroDTO = new MiembroDTO();
 
+        miembroDTO.setMiembroId(u.getId());
         miembroDTO.setNombre(u.getNombre());
         miembroDTO.setEmail(u.getEmail());
         miembroDTO.setBalance(u.getBalance());
@@ -124,6 +125,9 @@ public class MiembroController {
     private Miembro parseEntity(MiembroDTO u) {
         Miembro miembro = new Miembro();
 
+        if(u.getMiembroId()!= null){
+            miembro.setId(u.getMiembroId());
+        }
         miembro.setNombre(u.getNombre());
         miembro.setEmail(u.getEmail());
         miembro.setBalance(u.getBalance());

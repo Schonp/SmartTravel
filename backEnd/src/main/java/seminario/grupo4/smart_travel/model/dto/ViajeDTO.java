@@ -15,6 +15,7 @@ import java.util.List;
 public class ViajeDTO {
     private String nombreViaje;
     private long idUsuario;
+    private Long ViajeId;
 
     public ViajeDTO() {
     }

@@ -10,6 +10,7 @@ public class GastoDTO {
     private String tipo;
     private long idComprador;
     private long idViaje;
+    private Long GastoID;
 
     public GastoDTO() {
     }
@@ -36,6 +37,14 @@ public class GastoDTO {
 
     public long getIdViaje() {
         return idViaje;
+    }
+
+    public Long getGastoID() {
+        return GastoID;
+    }
+
+    public void setGastoID(Long gastoID) {
+        GastoID = gastoID;
     }
 
     public String getTipo() {

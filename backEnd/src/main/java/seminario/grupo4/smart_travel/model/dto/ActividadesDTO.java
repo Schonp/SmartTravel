@@ -12,6 +12,7 @@ public class ActividadesDTO {
     private String lugar;
     private Date fecha;
     private long viajeId;
+    private Long ActividadId;
 
     public ActividadesDTO() {
     }

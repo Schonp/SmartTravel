@@ -98,6 +98,7 @@ public class ActividadController {
     private ActividadesDTO parseDTO(Actividades actividades){
         ActividadesDTO dto = new ActividadesDTO();
 
+        dto.setActividadId(actividades.getId());
         dto.setNombreActividad(actividades.getNombreActividad());
         dto.setLugar(actividades.getLugar());
         dto.setFecha(actividades.getFecha());
@@ -108,7 +109,9 @@ public class ActividadController {
 
     private Actividades parseEntity(ActividadesDTO dto){
         Actividades actividades = new Actividades();
-
+        if(dto.getActividadId()!= null){
+            actividades.setId(dto.getActividadId());
+        }
         actividades.setNombreActividad(dto.getNombreActividad());
         actividades.setLugar(dto.getLugar());
         actividades.setFecha(dto.getFecha());

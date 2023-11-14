@@ -102,6 +102,7 @@ public class ViajesController {
     private ViajeDTO parseDTO(Viaje v) {
         ViajeDTO viajeDTO = new ViajeDTO();
 
+        viajeDTO.setViajeId(v.getId());
         viajeDTO.setNombreViaje(v.getNombreViaje());
 
         if(v.getUsuario() != null)
@@ -110,9 +111,12 @@ public class ViajesController {
         return viajeDTO;
     }
 
-    private Viaje parseEntity(ViajeDTO viajeDTO){
+    private Viaje parseEntity(ViajeDTO viajeDTO) {
         Viaje viaje = new Viaje();
 
+        if(viajeDTO.getViajeId()!= null){
+            viaje.setId(viajeDTO.getViajeId());
+        }
         viaje.setNombreViaje(viajeDTO.getNombreViaje());
 
         if(viajeDTO.getIdUsuario() != 0)

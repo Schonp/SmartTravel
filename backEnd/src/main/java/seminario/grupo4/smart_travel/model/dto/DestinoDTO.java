@@ -12,6 +12,7 @@ public class DestinoDTO {
     private Date fechaInicio;
     private Date fechaFin;
     private Long viajeId;
+    private Long DestinoId;
 
     public DestinoDTO() {
     }
