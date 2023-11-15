@@ -20,7 +20,7 @@ form_service = discovery.build(
 
 # Create your views here.
 
-def index(request, viaje, pregunta):
+'''def index(request, viaje, pregunta, posiblesRespuestas):
 
     NEW_FORM = {
         "info": {
@@ -64,7 +64,56 @@ def index(request, viaje, pregunta):
 
     id = get_result['formId']
 
-    return HttpResponse(id)
+    return HttpResponse(id)'''
+
+
+def index(request, viaje, pregunta, posiblesRespuestas):
+
+    NEW_FORM = {
+        "info": {
+            "title": "Encuesta sobre " + viaje,
+        }
+    }
+
+    opciones_respuestas = [{"value": f"{index + 1}. {respuesta.strip()}"} for index, respuesta in enumerate(posiblesRespuestas.split(','))]
+
+
+
+    NEW_QUESTION = {
+        "requests": [
+            {
+                "createItem": {
+                    "item": {
+                        "title": "" + pregunta,
+                        "questionItem": {
+                            "question": {
+                                "required": True,
+                                "choiceQuestion": {
+                                    "type": "RADIO",
+                                    "options": opciones_respuestas,
+                                    "shuffle": False,
+                                },
+                            }
+                        },
+                    },
+                    "location": {"index": 0},
+                }
+            }
+        ]
+    }
+
+    # Crear el formulario
+    result = form_service.forms().create(body=NEW_FORM).execute()
+
+    # Configurar la pregunta en el formulario
+    question_setting = form_service.forms().batchUpdate(formId=result["formId"], body=NEW_QUESTION).execute()
+
+    # Obtener el resultado del formulario
+    get_result = form_service.forms().get(formId=result["formId"]).execute()
+
+    id_formulario = get_result['formId']
+
+    return HttpResponse(id_formulario)
 
 
 def getUrl(request, id):
