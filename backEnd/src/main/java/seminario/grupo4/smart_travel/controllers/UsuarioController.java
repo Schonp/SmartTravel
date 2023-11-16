@@ -66,6 +66,17 @@ public class UsuarioController {
         return new ResponseEntity<>("Usuario eliminado exitosamente. " + id,null,200);
     }
 
+    @GetMapping("/{nombreUs}/{contraseña}")
+    public ResponseEntity<?> checkLogIn (@PathVariable String nombreUs, @PathVariable String contraseña) {
+        Usuario usuario = usuarioService.findUser(nombreUs,contraseña);
+
+        if(usuario == null) {
+            return new ResponseEntity<>("Lo sentimos",null,404);
+        }
+
+        return ResponseEntity.ok().body("Inicio de sesión exitoso");
+    }
+
     // PARSE METHODS
     private UsuarioDTO parseDTO(Usuario usuario) {
         UsuarioDTO retorno = new UsuarioDTO();

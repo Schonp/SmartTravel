@@ -56,4 +56,5 @@ public class UsuarioService implements IUsuarioService {
         Usuario usuario = usuarioDAO.findUser(nombreUs,contraseña);
         return usuario;
     }
+
 }
