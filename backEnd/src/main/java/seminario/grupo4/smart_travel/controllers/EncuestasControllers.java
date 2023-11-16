@@ -82,8 +82,8 @@ public class EncuestasControllers {
         return new ResponseEntity<>(response, null, HttpStatus.OK);
     }
 
-    @PostMapping("/hacerEncuestaPy/{idViaje}/{pregunta}")
-    public ResponseEntity<?> hacerEncuestaPy(@PathVariable Long idViaje, @PathVariable String pregunta){
+    @PostMapping("/hacerEncuestaPy/{idViaje}/{pregunta}/{posiblesRespuestas}")
+    public ResponseEntity<?> hacerEncuestaPy(@PathVariable Long idViaje, @PathVariable String pregunta, @PathVariable String posiblesRespuestas){
         Viaje viaje = viajeService.findById(idViaje);
 
         if (viaje == null)
@@ -91,7 +91,7 @@ public class EncuestasControllers {
 
         RestTemplate restTemplate = new RestTemplate();
 
-        String urlcrearEncuesta = url+"/crear/"+ viaje.getNombreViaje() +"/"+pregunta;
+        String urlcrearEncuesta = url+"/crear/"+ viaje.getNombreViaje() +"/"+pregunta +"/"+posiblesRespuestas;
 
         String idForm = restTemplate.getForObject(urlcrearEncuesta, String.class);
 
