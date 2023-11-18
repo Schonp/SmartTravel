@@ -59,6 +59,18 @@ public class MiembroController {
         return new ResponseEntity<>(miembroDTOList,null,200);
     }
 
+    @GetMapping("/miembros/{id}")
+    public ResponseEntity<?> getByViaje(@PathVariable Long id){
+        Viaje viaje = viajeService.findById(id);
+
+        if(viaje == null)
+            return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado." + id,null,404);
+
+        List<Miembro> miembros = miembroService.findByViaje(viaje);
+
+        return new ResponseEntity<>(miembros.size(),null,200);
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody MiembroDTO miembroDTO){
         Miembro miembro = parseEntity(miembroDTO);
