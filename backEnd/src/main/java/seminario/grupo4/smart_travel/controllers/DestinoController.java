@@ -106,9 +106,6 @@ public class DestinoController {
             }
         }
 
-        System.out.println("Inicio: " + fechaInicio);
-        System.out.println("Fin: " + fechaFin);
-
         return new ResponseEntity<>(new FechaTot(fechaInicio, fechaFin), null, 200);
     }
 

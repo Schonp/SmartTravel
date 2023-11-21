@@ -12,6 +12,7 @@ SELECT * FROM seminario.gastos;
 SELECT * FROM seminario.documentos;
 SELECT * FROM seminario.actividades;
 SELECT * FROM seminario.destinos;
+SELECT * FROM seminario.encuestas;
 
 
 # MODIFICACIONES
