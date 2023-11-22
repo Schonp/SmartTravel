@@ -20,7 +20,7 @@ form_service = discovery.build(
 
 # Create your views here.
 
-def index(request, viaje, pregunta):
+'''def index(request, viaje, pregunta, posiblesRespuestas):
 
     NEW_FORM = {
         "info": {
@@ -64,7 +64,56 @@ def index(request, viaje, pregunta):
 
     id = get_result['formId']
 
-    return HttpResponse(id)
+    return HttpResponse(id)'''
+
+
+def index(request, viaje, pregunta, posiblesRespuestas):
+
+    NEW_FORM = {
+        "info": {
+            "title": "Encuesta sobre " + viaje,
+        }
+    }
+
+    opciones_respuestas = [{"value": f"{index + 1}. {respuesta.strip()}"} for index, respuesta in enumerate(posiblesRespuestas.split(','))]
+
+
+
+    NEW_QUESTION = {
+        "requests": [
+            {
+                "createItem": {
+                    "item": {
+                        "title": "" + pregunta,
+                        "questionItem": {
+                            "question": {
+                                "required": True,
+                                "choiceQuestion": {
+                                    "type": "RADIO",
+                                    "options": opciones_respuestas,
+                                    "shuffle": False,
+                                },
+                            }
+                        },
+                    },
+                    "location": {"index": 0},
+                }
+            }
+        ]
+    }
+
+    # Crear el formulario
+    result = form_service.forms().create(body=NEW_FORM).execute()
+
+    # Configurar la pregunta en el formulario
+    question_setting = form_service.forms().batchUpdate(formId=result["formId"], body=NEW_QUESTION).execute()
+
+    # Obtener el resultado del formulario
+    get_result = form_service.forms().get(formId=result["formId"]).execute()
+
+    id_formulario = get_result['formId']
+
+    return HttpResponse(id_formulario)
 
 
 def getUrl(request, id):
@@ -77,27 +126,27 @@ def getUrl(request, id):
     return HttpResponse(retorno)
 
 def getRtas(request, id):
+
     result = form_service.forms().responses().list(formId=id).execute()
 
-    cont_si = 0
-    cont_no = 0
+
+    conteo_respuestas = {}
+
 
     respuestas = result["responses"]
-    
+
+
     for elements in respuestas:
         valor = extraerValor(elements)
-        
-        if valor == "Si":
-            cont_si = cont_si + 1 
-        elif valor == "No":
-            cont_no = cont_no + 1   
+
+        # Actualizar el contador de respuestas
+        if valor in conteo_respuestas:
+            conteo_respuestas[valor] += 1
         else:
-            pass
-    
-    return JsonResponse({
-        "Si": cont_si,
-        "No": cont_no
-    })
+            conteo_respuestas[valor] = 1
+
+    # Devolver los resultados como una respuesta JSON
+    return JsonResponse(conteo_respuestas)
 
 
 def ping(request):
@@ -105,11 +154,13 @@ def ping(request):
     
 
 def extraerValor(respuestas):
-    answers = respuestas["answers"]
+    # Obtener las respuestas de la respuesta dada
+    answers = respuestas.get("answers", {})
 
-    dicc = list(answers.values())
+    # Obtener el primer valor de la respuesta de texto (asumiendo que solo hay uno)
+    dicc = next(iter(answers.values()), {}).get("textAnswers", {}).get("answers", [{}])
     
-    retorno = dicc[0]["textAnswers"]["answers"][0]["value"]
+    retorno = dicc[0].get("value", "")
 
     return retorno
 
