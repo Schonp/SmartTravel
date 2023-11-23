@@ -75,7 +75,7 @@ public class MiembroController {
     public ResponseEntity<?> save(@RequestBody MiembroDTO miembroDTO){
         Miembro miembro = parseEntity(miembroDTO);
         miembro.setBalance(0);
-        miembro.setViaje(viajeService.findById(1)); // TODO BORRAR
+
         miembroService.save(miembro);
         return new ResponseEntity<>(miembroDTO,null,201);
     }
