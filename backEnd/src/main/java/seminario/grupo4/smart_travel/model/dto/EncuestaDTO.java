@@ -10,14 +10,16 @@ public class EncuestaDTO {
     private String url;
     private long viajeId;
     private Long EncuestaId;
+    private String pregunta;
 
     public EncuestaDTO() {
     }
 
-    public EncuestaDTO(String fomsId, String url, long viajeId) {
+    public EncuestaDTO(String fomsId,String pregunta, String url, long viajeId) {
         this.fomsId = fomsId;
         this.url = url;
         this.viajeId = viajeId;
+        this.pregunta = pregunta;
     }
 
     @Override
@@ -25,6 +27,9 @@ public class EncuestaDTO {
         return "EncuestaDTO{" +
                 "fomsId='" + fomsId + '\'' +
                 ", url='" + url + '\'' +
+                ", viajeId=" + viajeId +
+                ", EncuestaId=" + EncuestaId +
+                ", pregunta='" + pregunta + '\'' +
                 '}';
     }
 }

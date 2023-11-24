@@ -14,6 +14,7 @@ public class Encuesta {
     private Long id;
     private String fomsId;
     private String url;
+    private String pregunta;
     @ManyToOne
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
@@ -22,9 +23,10 @@ public class Encuesta {
     public Encuesta() {
     }
 
-    public Encuesta(String fomsId, String url) {
+    public Encuesta(String fomsId, String pregunta, String url) {
         this.fomsId = fomsId;
         this.url = url;
+        this.pregunta = pregunta;
     }
 
     @Override

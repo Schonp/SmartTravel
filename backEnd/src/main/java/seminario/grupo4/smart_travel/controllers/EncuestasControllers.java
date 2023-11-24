@@ -99,7 +99,7 @@ public class EncuestasControllers {
 
         String urlForm = restTemplate.getForObject(urldeEncuesta, String.class);
 
-        EncuestaDTO encuestaDTO = new EncuestaDTO(idForm, urlForm, idViaje);
+        EncuestaDTO encuestaDTO = new EncuestaDTO(idForm, pregunta, urlForm, idViaje);
 
         encuestasService.saveEncuesta(parseEntity(encuestaDTO));
 
@@ -137,6 +137,7 @@ public class EncuestasControllers {
         if(encuestaDTO.getEncuestaId()!= null){
             e.setId(encuestaDTO.getEncuestaId());
         }
+        e.setPregunta(encuestaDTO.getPregunta());
         e.setUrl(encuestaDTO.getUrl());
         e.setFomsId(encuestaDTO.getFomsId());
         e.setViaje(viajeService.findById(encuestaDTO.getViajeId()));
