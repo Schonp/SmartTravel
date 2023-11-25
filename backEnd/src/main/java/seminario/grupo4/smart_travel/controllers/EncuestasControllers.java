@@ -150,6 +150,7 @@ public class EncuestasControllers {
 
         dto.setEncuestaId(e.getId());
         dto.setUrl(e.getUrl());
+        dto.setPregunta(e.getPregunta());
         dto.setFomsId(e.getFomsId());
         dto.setViajeId(e.getViaje().getId());
 
