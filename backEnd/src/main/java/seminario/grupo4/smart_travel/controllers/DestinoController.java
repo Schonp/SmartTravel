@@ -74,12 +74,18 @@ public class DestinoController {
 
         List<Destino> destinos = destinoService.findByViaje(viaje);
 
-        for (Destino d : destinos){
-            retorno = retorno + d.getCiudadDestino() + " - ";
+        if(destinos.size() == 1)
+            retorno = destinos.get(0).getCiudadDestino();
+        if(destinos.size() == 2){
+            for (Destino d : destinos){
+                retorno = retorno + d.getCiudadDestino() + " - ";
+            }
+
+            retorno = retorno.substring(0, retorno.length() - 3);
         }
-
-        retorno = retorno.substring(0, retorno.length() - 3);
-
+        if (destinos.size() > 2){
+            retorno = destinos.get(0).getCiudadDestino() + " + " + (destinos.size() - 1);
+        }
 
         return new ResponseEntity<>(retorno, null, 200);
     }
