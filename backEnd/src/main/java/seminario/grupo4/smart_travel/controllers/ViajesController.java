@@ -74,7 +74,7 @@ public class ViajesController {
 
         Miembro miembro = new Miembro();
 
-        miembro.setNombre(viaje.getUsuario().getNombreUs());
+        miembro.setNombre("Tú");
         miembro.setViaje(viaje);
         miembro.setEmail(viaje.getUsuario().getEmail());
         miembro.setBalance(0);
