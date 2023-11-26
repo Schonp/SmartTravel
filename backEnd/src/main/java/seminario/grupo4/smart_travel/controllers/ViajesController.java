@@ -3,9 +3,12 @@ package seminario.grupo4.smart_travel.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import seminario.grupo4.smart_travel.model.dto.MiembroDTO;
 import seminario.grupo4.smart_travel.model.dto.ViajeDTO;
+import seminario.grupo4.smart_travel.model.entity.Miembro;
 import seminario.grupo4.smart_travel.model.entity.Usuario;
 import seminario.grupo4.smart_travel.model.entity.Viaje;
+import seminario.grupo4.smart_travel.service.implementaciones.MiembroService;
 import seminario.grupo4.smart_travel.service.implementaciones.UsuarioService;
 import seminario.grupo4.smart_travel.service.implementaciones.ViajeService;
 
@@ -21,7 +24,8 @@ public class ViajesController {
     private ViajeService viajeService;
     @Autowired
     private UsuarioService usuarioService;
-
+    @Autowired
+    private MiembroService miembroService;
     @GetMapping("")
     public List<ViajeDTO> getAll() {
         List<ViajeDTO> viajesDTO = new ArrayList<>();
@@ -67,6 +71,15 @@ public class ViajesController {
         Viaje viaje = parseEntity(viajeDTO);
 
         viajeService.save(viaje);
+
+        Miembro miembro = new Miembro();
+
+        miembro.setNombre(viaje.getUsuario().getNombreUs());
+        miembro.setViaje(viaje);
+        miembro.setEmail(viaje.getUsuario().getEmail());
+        miembro.setBalance(0);
+
+        miembroService.save(miembro);
 
         return new ResponseEntity(parseDTO(viaje), null, 201);
     }
