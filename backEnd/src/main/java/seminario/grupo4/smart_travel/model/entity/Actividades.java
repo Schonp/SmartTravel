@@ -18,7 +18,7 @@ public class Actividades {
     private String lugar;
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
 

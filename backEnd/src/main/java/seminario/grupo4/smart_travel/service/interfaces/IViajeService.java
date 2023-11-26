@@ -10,6 +10,6 @@ public interface IViajeService {
     Viaje findById(long id);
     void save(Viaje viaje);
     void update(long id,Viaje viaje);
-    void deleteById(long id);
+    void deleteById(Viaje id);
     List<Viaje> findByUsuario(Usuario usuario);
 }

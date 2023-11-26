@@ -16,17 +16,17 @@ public class Viaje {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombreViaje;
-    @OneToMany(mappedBy = "viaje")
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
     private List<Miembro> miembros = new ArrayList<>();
-    @OneToMany(mappedBy = "viaje")
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
     private List<Gasto> gastos= new ArrayList<>();
     @OneToMany(mappedBy = "viaje")
     private List<Documento> documentos= new ArrayList<>();
-    @OneToMany(mappedBy = "viaje")
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
     private List<Destino> destinos= new ArrayList<>();
-    @OneToMany(mappedBy = "viaje")
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
     private List<Actividades> actividades = new ArrayList<>();
-    @OneToMany(mappedBy = "viaje")
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL)
     private List<Encuesta> encuestas = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "usuario_id")

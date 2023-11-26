@@ -20,7 +20,7 @@ public class Documento {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] datosDocumento;
     private String tipo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
     public Documento() {

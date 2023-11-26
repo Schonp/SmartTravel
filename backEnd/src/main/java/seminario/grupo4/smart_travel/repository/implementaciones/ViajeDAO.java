@@ -47,13 +47,10 @@ public class ViajeDAO implements IViajeDAO {
 
     @Override
     @Transactional
-    public void deleteById(long id) {
+    public void deleteById(Viaje id) {
         Session currentSession = entityManager.unwrap(Session.class);
 
-        Query<Viaje> query = currentSession.createQuery("delete from Viaje where id=:id", Viaje.class);
-
-        query.setParameter("id",id);
-        query.executeUpdate();
+        currentSession.remove(id);
     }
 
     @Override

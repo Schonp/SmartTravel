@@ -20,7 +20,7 @@ public class Destino {
     private Date fechaInicio;
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
 

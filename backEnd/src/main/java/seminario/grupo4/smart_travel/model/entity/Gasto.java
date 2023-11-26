@@ -18,7 +18,7 @@ public class Gasto {
     @ManyToOne
     @JoinColumn(name = "comprador_id")
     private Miembro comprador;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
 

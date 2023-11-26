@@ -44,7 +44,7 @@ public class ViajeService implements IViajeService {
     }
 
     @Override
-    public void deleteById(long id) {
+    public void deleteById(Viaje id) {
         viajeDAO.deleteById(id);
     }
 

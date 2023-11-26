@@ -105,7 +105,7 @@ public class ViajesController {
         if (viajeBD == null)
             return new ResponseEntity<>("Lo sentimos, no se ha encontrado ningún viaje con el id ingresado. " + id,null,404);
 
-        viajeService.deleteById(id);
+        viajeService.deleteById(viajeBD);
 
         return new ResponseEntity<>("Viaje eliminado exitosamente. " + id,null,200);
     }

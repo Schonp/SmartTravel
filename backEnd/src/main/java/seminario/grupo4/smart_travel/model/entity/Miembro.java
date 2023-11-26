@@ -18,7 +18,7 @@ public class Miembro {
     private String nombre;
     private String email;
     private double balance;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
     @OneToMany(mappedBy = "comprador")
