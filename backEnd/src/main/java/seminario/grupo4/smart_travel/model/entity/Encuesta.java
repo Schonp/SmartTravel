@@ -15,7 +15,7 @@ public class Encuesta {
     private String fomsId;
     private String url;
     private String pregunta;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "viaje_id")
     private Viaje viaje;
 
