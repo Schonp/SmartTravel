@@ -67,7 +67,9 @@ form_service = discovery.build(
     return HttpResponse(id)'''
 
 
-def index(request, viaje, pregunta, posiblesRespuestas):
+def index(request, viaje):
+    pregunta = request.GET.get("pregunta")
+    posiblesRespuestas = request.GET.get("posiblesRespuestas")
 
     NEW_FORM = {
         "info": {
