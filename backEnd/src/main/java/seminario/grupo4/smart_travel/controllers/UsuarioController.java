@@ -74,7 +74,7 @@ public class UsuarioController {
             return new ResponseEntity<>("Lo sentimos",null,404);
         }
 
-        return ResponseEntity.ok().body("Inicio de sesión exitoso");
+        return new ResponseEntity<>(parseDTO(usuario),null,200);
     }
 
     // PARSE METHODS
