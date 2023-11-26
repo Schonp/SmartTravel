@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import seminario.grupo4.smart_travel.model.dto.EncuestaDTO;
 import seminario.grupo4.smart_travel.model.entity.Encuesta;
@@ -66,9 +67,12 @@ public class EncuestasControllers {
 
         String urlRtas = url+"/rtas/"+idForms;
 
-        String response = restTemplate.getForObject(urlRtas, String.class);
-
-        return new ResponseEntity<>(response, null, HttpStatus.OK);
+        try {
+            String response = restTemplate.getForObject(urlRtas, String.class);
+            return new ResponseEntity<>(response, null, HttpStatus.OK);
+        }catch (HttpServerErrorException.InternalServerError e){
+            return new ResponseEntity<>(null, null, HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("url/{idForms}")
