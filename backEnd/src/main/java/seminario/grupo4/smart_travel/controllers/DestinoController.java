@@ -100,19 +100,23 @@ public class DestinoController {
 
         List<Destino> destinos = destinoService.findByViaje(viaje);
 
-        Date fechaInicio = destinos.get(0).getFechaInicio();
-        Date fechaFin = destinos.get(0).getFechaFin();
+        try {
+            Date fechaInicio = destinos.get(0).getFechaInicio();
+            Date fechaFin = destinos.get(0).getFechaFin();
 
-        for (Destino d : destinos){
-            if (fechaInicio.compareTo(d.getFechaInicio()) > 0){
-                fechaInicio = d.getFechaInicio();
+            for (Destino d : destinos) {
+                if (fechaInicio.compareTo(d.getFechaInicio()) > 0) {
+                    fechaInicio = d.getFechaInicio();
+                }
+                if (fechaFin.compareTo(d.getFechaFin()) < 0) {
+                    fechaFin = d.getFechaFin();
+                }
             }
-            if(fechaFin.compareTo(d.getFechaFin()) < 0){
-                fechaFin = d.getFechaFin();
-            }
+
+            return new ResponseEntity<>(new FechaTot(fechaInicio, fechaFin), null, 200);
+        }catch (IndexOutOfBoundsException e){
+            return new ResponseEntity<>(new FechaTot(null, null), null, 200);
         }
-
-        return new ResponseEntity<>(new FechaTot(fechaInicio, fechaFin), null, 200);
     }
 
     @PostMapping("")
